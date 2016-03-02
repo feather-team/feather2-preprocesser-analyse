@@ -8,7 +8,7 @@ function extendUriBefore(content, file){
             var info = feather.uri(value, file.dirname);
             feather.compile(info.file);
 
-            var oldHash = info.file.useHash, oldDomain = info.file.useDomain;
+            var oldHash = info.file.useHash;//, oldDomain = info.file.useDomain;
 
             if(info.file && info.file.isFile()){
                 hash = hash && hash == 'true';
@@ -16,16 +16,20 @@ function extendUriBefore(content, file){
 
                 if(!hash || !domain){
                     info.file.useHash = hash;
-                    info.file.useDomain = domain;
+                    //info.file.useDomain = domain;
 
                     var query = (info.file.query && info.query) ? '&' + info.query.substring(1) : info.query;
                     var url = info.file.getUrl();
                     var hash = info.hash || info.file.hash;
 
-                    info.file.useHash = oldHash;
-                    info.file.useDomain = oldDomain;
+                    if(!domain){
+                        url = url.substring(info.file.domain.length);
+                    }
 
-                    return ':::FEATHER#URI:::' + info.quote + url + query + hash + info.quote + ':::END:::';
+                    info.file.useHash = oldHash;
+                  //  info.file.useDomain = oldDomain;
+
+                    return ':::FEATHER#URI:::' + info.quote + url + query + info.quote + ':::END:::';
                 }
             }
 
