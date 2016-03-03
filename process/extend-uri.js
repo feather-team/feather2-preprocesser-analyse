@@ -15,7 +15,7 @@ function extendUriBefore(content, file){
                 domain = !domain || domain == 'true';
 
                 if(!hash || !domain){
-                    info.file.useHash = hash;
+                    //info.file.useHash = oldHash || hash;
                     //info.file.useDomain = domain;
 
                     var query = (info.file.query && info.query) ? '&' + info.query.substring(1) : info.query;
